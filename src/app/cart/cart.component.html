@@ -1,0 +1,21 @@
+<p>cart works!</p>
+
+<div class="cart-item" *ngFor="let item of items">
+    <span>{{item.name}}</span>
+    <span>{{item.description}}</span>
+</div>
+
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" formControlName="name">
+    </div>
+
+    <div>
+        <label for="address">Email</label>
+        <input type="email" id="email" formControlName="email">
+    </div>
+
+    <button class="button" type="submit" [disabled]="!checkoutForm.valid">Purchase</button>
+</form>
