@@ -11,6 +11,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CartComponent } from './cart/cart.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { YourGuardGuard } from './your-guard.guard';
 
 @NgModule({
   declarations: [
@@ -21,16 +23,30 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductDetailsComponent,
     CartComponent,
     ShippingComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: ProuductListComponent },
-      { path: 'products/:productId', component: ProductDetailsComponent },
-      { path: 'cart', component: CartComponent },
-      { path: 'shipping', component: ShippingComponent },
+      {
+        path: '',
+        component: ProuductListComponent,
+        canActivate: [YourGuardGuard],
+      },
+      {
+        path: 'products/:productId',
+        component: ProductDetailsComponent,
+        canActivate: [YourGuardGuard],
+      },
+      { path: 'cart', component: CartComponent, canActivate: [YourGuardGuard] },
+      {
+        path: 'shipping',
+        component: ShippingComponent,
+        canActivate: [YourGuardGuard],
+      },
+      { path: 'login', component: LoginComponent },
     ]),
   ],
   providers: [],
